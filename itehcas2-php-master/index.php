@@ -1,16 +1,17 @@
 <?php
-
+require "dbbroker.php";
 require "user.php";
+
 
 session_start();
 if(isset($_POST['username'])&&isset($_POST['password']))
 {
     $uname=$_POST['username'];
     $upass=$_POST['password'];
-    $conn=new mysqli();
+   
     $korisnik=new User(1,$uname,$upass);
     $odg=User::logIn($korisnik,$conn);
-    if($odg)
+    if($odg->num_rows==1)
     {
         echo   `
         <script>
